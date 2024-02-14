@@ -309,12 +309,11 @@ class Degit extends EventEmitter {
     await exec(`rm -rf ${path.resolve(dest, ".git")}`);
 		if (this.github && getGhConfig()) {
 			const repo_name = dest === '.' ? path.basename(path.resolve(dest)): dest
-			await exec(`cd ${dest}`)
-			await exec(`git init`)
-			await exec(`git add .`)
-			await exec(`git commit -m "${this.message||'initial commit by gitt'}"`)
-			await exec(`gh repo create ${repo_name} --${this.public?'public':'private'} --source=.`)
-			await exec(`git push --set-upstream origin master`)
+			await exec(`cd ${dest} && \
+git init && git add . && \
+git commit -m "${this.message||'initial commit by gitt'}" && \
+gh repo create ${repo_name} --${this.public?'public':'private'} --source=. && \
+git push --set-upstream origin master`)
 		}
   }
 }
