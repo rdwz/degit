@@ -306,11 +306,16 @@ class Degit extends EventEmitter {
 
     mkdirp(dest);
     await untar(file, dest, subdir);
+		await this.gitStuff(dest)
   }
 
   async _cloneWithGit(dir, dest) {
     await exec(`git clone ${this.repo.ssh} ${dest}`);
     await exec(`rm -rf ${path.resolve(dest, ".git")}`);
+		await this.gitStuff(dest)
+  }
+
+	async gitStuff(dest) {
 		if (this.github && getGhConfig()) {
 			const repo_name = dest === '.' ? path.basename(path.resolve(dest)): dest
 			await exec(`cd ${dest} && \
@@ -321,7 +326,7 @@ git push --set-upstream origin master`)
 		} else if (this.git) {
 			await exec(`git init ${dest}`)
 		}
-  }
+	}
 }
 
 const supported = new Set(["github", "gitlab", "bitbucket", "git.sr.ht"]);
