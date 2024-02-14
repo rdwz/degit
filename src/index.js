@@ -350,7 +350,7 @@ function tryGh(src) {
       const url = `https://${domain}/${user}/${name}`;
       const ssh = `git@${domain}:${user}/${name}`;
 
-      const mode =  "git";
+      const mode =  "tar";
 
       return { site, user, name, ref, url, ssh, subdir, mode };
     }
