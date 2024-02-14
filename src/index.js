@@ -41,7 +41,8 @@ class Degit extends EventEmitter {
 		this.message = opts.message
 		this.public = opts.public
     this.repo = parse(src);
-		if (!this.repo.subdir && opts.subdir) {
+		console.log(this.repo, opts.subdir)
+		if (opts.subdir) {
 			this.repo.subdir = opts.subdir
 		}
     this.mode = opts.mode || this.repo.mode;
