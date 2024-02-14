@@ -35,16 +35,15 @@ class Degit extends EventEmitter {
     this.force = opts.force;
     this.verbose = opts.verbose;
     this.proxy = process.env.https_proxy; // TODO allow setting via --proxy
-		this.subdir = opts.subdir
 		this.git = opts.git
 		this.github = opts.github
 		this.message = opts.message
 		this.public = opts.public
     this.repo = parse(src);
-		console.log(this.repo, opts.subdir)
 		if (opts.subdir) {
-			this.repo.subdir = opts.subdir
+			this.repo.subdir = '/' + opts.subdir
 		}
+		console.log(this.repo, opts.subdir)
     this.mode = opts.mode || this.repo.mode;
 
     if (!validModes.has(this.mode)) {

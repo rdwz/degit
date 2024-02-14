@@ -1,6 +1,6 @@
 {
 	"name": "@xiangnanscu/degit",
-	"version": "2.19.0",
+	"version": "2.20.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
