@@ -11,13 +11,14 @@ import { tryRequire, base } from './utils.js';
 const args = mri(process.argv.slice(2), {
 	alias: {
 		g: 'github',
+		s: 'subdir',
 		p: 'public',
 		f: 'force',
 		c: 'cache',
 		v: 'verbose',
 		m: 'mode'
 	},
-	boolean: ['force', 'cache', 'verbose', 'public','github','git','message']
+	boolean: ['force', 'cache', 'verbose', 'public','github','git']
 });
 console.log(args)
 const [src, dest = '.'] = args._;

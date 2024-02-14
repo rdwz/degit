@@ -1,12 +1,13 @@
 {
-	"name": "gitt",
-	"version": "2.15.0",
+	"name": "@xiangnanscu/degit",
+	"version": "2.16.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
 	"description": "Straightforward project scaffolding",
 	"main": "dist/index.js",
 	"bin": {
+		"degit": "degit",
 		"gitt": "degit"
 	},
 	"scripts": {

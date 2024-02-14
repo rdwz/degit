@@ -35,6 +35,7 @@ class Degit extends EventEmitter {
     this.force = opts.force;
     this.verbose = opts.verbose;
     this.proxy = process.env.https_proxy; // TODO allow setting via --proxy
+		this.subdir = opts.subdir
 		this.git = opts.git
 		this.github = opts.github
 		this.message = opts.message
@@ -338,7 +339,7 @@ function tryGh(src) {
       const site = "github";
       const user = ghc.user;
       const name = src;
-      const subdir = null;
+      const subdir = this.subdir;
       const ref = "HEAD";
 
       const domain = `${site}.com`;
