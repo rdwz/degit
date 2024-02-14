@@ -314,6 +314,8 @@ git init && git add . && \
 git commit -m "${this.message||'initial commit by gitt'}" && \
 gh repo create ${repo_name} --${this.public?'public':'private'} --source=. && \
 git push --set-upstream origin master`)
+		} else if (this.git) {
+			await exec(`git init ${dest}`)
 		}
   }
 }
