@@ -1,6 +1,6 @@
 {
 	"name": "@xiangnanscu/degit",
-	"version": "2.9.0",
+	"version": "2.10.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
@@ -15,7 +15,10 @@
 		"build": "rollup -c",
 		"prerc": "npm --no-git-tag-version version minor",
 		"rc": "npm run push",
-		"push": "git add . && git commit -am \"${msg:-push}\" && git push --push-option=${push_option:-nothing}"
+		"commit": "git add . && git commit -am ",
+		"c": "npm run commit",
+		"push": "npm run commit",
+		"postpush": "while true; do git push origin master && { echo 'Git push succeeded'; break; } || echo 'Git push failed, retrying in 1 seconds'; sleep 1; done"
 	},
 	"repository": {
 		"type": "git",
