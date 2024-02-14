@@ -32,6 +32,7 @@ export function tryRequire(file, opts) {
 
 export function exec(command) {
 	return new Promise((fulfil, reject) => {
+		console.log("command:",command)
 		child_process.exec(command, (err, stdout, stderr) => {
 			if (err) {
 				reject(err);

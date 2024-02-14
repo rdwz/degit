@@ -3,6 +3,7 @@ import path from "path";
 import tar from "tar";
 import EventEmitter from "events";
 import chalk from "chalk";
+import os from 'os';
 import { rimrafSync } from "sander";
 import {
   DegitError,
@@ -18,6 +19,9 @@ import {
 
 const validModes = new Set(["tar", "git"]);
 
+const GIT_NAME_REGEX = /^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*(\.[a-zA-Z0-9]+)*$/;
+const GH_CONFIG_PATH = `${os.homedir()}/.config/gh/hosts.yml`;
+
 export default function degit(src, opts) {
   return new Degit(src, opts);
 }
@@ -31,7 +35,10 @@ class Degit extends EventEmitter {
     this.force = opts.force;
     this.verbose = opts.verbose;
     this.proxy = process.env.https_proxy; // TODO allow setting via --proxy
-
+		this.git = opts.git
+		this.github = opts.github
+		this.message = opts.message
+		this.public = opts.public
     this.repo = parse(src);
     this.mode = opts.mode || this.repo.mode;
 
@@ -300,30 +307,44 @@ class Degit extends EventEmitter {
   async _cloneWithGit(dir, dest) {
     await exec(`git clone ${this.repo.ssh} ${dest}`);
     await exec(`rm -rf ${path.resolve(dest, ".git")}`);
+		if (this.github && getGhConfig()) {
+			const repo_name = dest === '.' ? path.basename(path.resolve(dest)): dest
+			await exec(`cd ${dest}`)
+			await exec(`git init`)
+			await exec(`git add .`)
+			await exec(`git commit -m "${this.message||'initial commit by gitt'}"`)
+			await exec(`gh repo create ${repo_name} --${this.public?'public':'private'} --source=.`)
+			await exec(`git push --set-upstream origin master`)
+		}
   }
 }
 
 const supported = new Set(["github", "gitlab", "bitbucket", "git.sr.ht"]);
 
+function getGhConfig() {
+	if (fs.existsSync(GH_CONFIG_PATH)) {
+		const hosts = fs.readFileSync(GH_CONFIG_PATH, "utf8");
+    const gh_user_match = hosts.match(/\s+user:\s*([^\n\r]+)/);
+		if (gh_user_match) {
+			return {user: gh_user_match[1]}
+		}
+	}
+}
 function tryGh(src) {
-  const NAME_REGEX = /^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*(\.[a-zA-Z0-9]+)*$/;
-  const GH_CONFIG_PATH = `~/.config/gh/hosts.yml`;
-	console.log("fs.existsSync(GH_CONFIG_PATH)", fs.existsSync(GH_CONFIG_PATH))
-  if (NAME_REGEX.test(src) && fs.existsSync(GH_CONFIG_PATH)) {
-    const hosts = fs.readFileSync(GH_CONFIG_PATH, "utf8");
-    const gh_user_match = hosts.match(/^\s+user:\s*([^\n\r]+)/);
-    if (gh_user_match) {
+  if (GIT_NAME_REGEX.test(src)) {
+    const ghc = getGhConfig()
+    if (ghc) {
       const site = "github";
-      const user = gh_user_match[1];
+      const user = ghc.user;
       const name = src;
       const subdir = null;
       const ref = "HEAD";
 
-      const domain = `${site}.${site === "bitbucket" ? "org" : site === "git.sr.ht" ? "" : "com"}`;
+      const domain = `${site}.com`;
       const url = `https://${domain}/${user}/${name}`;
       const ssh = `git@${domain}:${user}/${name}`;
 
-      const mode = supported.has(site) ? "tar" : "git";
+      const mode =  "git";
 
       return { site, user, name, ref, url, ssh, subdir, mode };
     }
@@ -336,10 +357,10 @@ function parse(src) {
       src
     );
   if (!match) {
-    const gh_config = tryGh(src);
-    if (gh_config) {
-			console.log(gh_config)
-      return gh_config;
+    const gh_repo = tryGh(src);
+    if (gh_repo) {
+			// console.log(gh_repo)
+      return gh_repo;
     }
     throw new DegitError(`could not parse ${src}`, {
       code: "BAD_SRC",
