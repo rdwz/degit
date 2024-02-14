@@ -308,6 +308,7 @@ const supported = new Set(["github", "gitlab", "bitbucket", "git.sr.ht"]);
 function tryGh(src) {
   const NAME_REGEX = /^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*(\.[a-zA-Z0-9]+)*$/;
   const GH_CONFIG_PATH = `~/.config/gh/hosts.yml`;
+	console.log("fs.existsSync(GH_CONFIG_PATH)", fs.existsSync(GH_CONFIG_PATH))
   if (NAME_REGEX.test(src) && fs.existsSync(GH_CONFIG_PATH)) {
     const hosts = fs.readFileSync(GH_CONFIG_PATH, "utf8");
     const gh_user_match = hosts.match(/^\s+user:\s*([^\n\r]+)/);
@@ -337,6 +338,7 @@ function parse(src) {
   if (!match) {
     const gh_config = tryGh(src);
     if (gh_config) {
+			console.log(gh_config)
       return gh_config;
     }
     throw new DegitError(`could not parse ${src}`, {
