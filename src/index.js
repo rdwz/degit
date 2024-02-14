@@ -41,6 +41,9 @@ class Degit extends EventEmitter {
 		this.message = opts.message
 		this.public = opts.public
     this.repo = parse(src);
+		if (!this.repo.subdir && opts.subdir) {
+			this.repo.subdir = opts.subdir
+		}
     this.mode = opts.mode || this.repo.mode;
 
     if (!validModes.has(this.mode)) {
@@ -339,7 +342,7 @@ function tryGh(src) {
       const site = "github";
       const user = ghc.user;
       const name = src;
-      const subdir = this.subdir;
+      const subdir = null;
       const ref = "HEAD";
 
       const domain = `${site}.com`;
@@ -361,7 +364,6 @@ function parse(src) {
   if (!match) {
     const gh_repo = tryGh(src);
     if (gh_repo) {
-			// console.log(gh_repo)
       return gh_repo;
     }
     throw new DegitError(`could not parse ${src}`, {
