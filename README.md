@@ -1,28 +1,27 @@
 # @xiangnanscu/degit — straightforward project scaffolding
+[![install size](https://badgen.net/packagephobia/install/@xiangnanscu/degit)](https://packagephobia.now.sh/result?p=@xiangnanscu/degit)
+[![npm package version](https://badgen.net/npm/v/@xiangnanscu/degit)](https://npm.im/@xiangnanscu/degit)
 
-[![Travis CI build status](https://badgen.net/travis/Rich-Harris/degit/master)](https://travis-ci.org/Rich-Harris/degit)
-[![AppVeyor build status](https://badgen.net/appveyor/ci/Rich-Harris/degit/master)](https://ci.appveyor.com/project/Rich-Harris/degit/branch/master)
-[![Known Vulnerabilities](https://snyk.io/test/npm/degit/badge.svg)](https://snyk.io/test/npm/degit)
-[![install size](https://badgen.net/packagephobia/install/degit)](https://packagephobia.now.sh/result?p=degit)
-[![npm package version](https://badgen.net/npm/v/degit)](https://npm.im/degit)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+## Enhancement from the origin degit
+
+- Use `degit some-repo` as a shortcut for `degit some-user/some-repo`
+
+If you're already logged into [GitHub CLI](https://cli.github.com/) (for example, as `some-user`), executing `degit some-repo` will implicitly act as if you entered `degit some-user/some-repo`.
+
+- `--github` option to initialize a GitHub repository in your current directory
+
+- `--public` flag to create a public GitHub repository. This must be used in conjunction with the `--github` flag.
+
+- `--git` command to perform a `git init` in your current working directory
+
+- `--subdir=` parameter to define a subdirectory within a GitHub repository when operating in GitHub CLI mode
+
+## Introduction
 
 **degit** makes copies of git repositories. When you run `degit some-user/some-repo`, it will find the latest commit on https://github.com/some-user/some-repo and download the associated tar file to `~/.degit/some-user/some-repo/commithash.tar.gz` if it doesn't already exist locally. (This is much quicker than using `git clone`, because you're not downloading the entire git history.)
 
 _Requires Node 8 or above, because `async` and `await` are the cat's pyjamas_
 
-# Enhance from origin degit
-
-- `degit some-repo` intead of `degit some-user/some-repo`
-
-When you've already login [gh](https://cli.github.com/) (say, login as `some-user`), you run `degit some-repo` and , it will be the same as `degit some-user/some-repo`
-
-- `--github` flag to create github remote repo from working folder
-
-- `--git` flag to run `git init` in working folder
-
-- `--subdir` flag to fetch sub directory when in gh mode
 
 ## Installation
 
@@ -32,17 +31,20 @@ npm install -g @xiangnanscu/degit
 
 ## Usage
 
-### gh mode
-assuming you login [gh](https://cli.github.com/) as `user`
+### GitHub CLI mode
+Assuming you're already logged into [GitHub CLI](https://cli.github.com/) (for example, as `user`)
 ```bash
-# same as degit user/repo
+# same as `degit user/repo`
 degit repo
 
-# initialize a github repo `user/somedir` from `user/repo` (commit and push immediately)
+# initialize a private github repo `user/somedir` from `user/repo` (commit and push immediately)
 cd somedir && degit repo --github
 
 # or like this
 degit repo somedir --github
+
+# create a public github repo `user/somedir`
+degit repo somedir --github --public
 
 # or initialize `user/somedir` from `user/templates-repo/templateA`
 degit templates-repo somedir --github --subdir=templateA

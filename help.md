@@ -55,8 +55,10 @@ Options:
   `--verbose`, `-v`  Extra logging
   `--mode=`,   `-m=` Force the mode by which degit clones the repo
                      Valid options are `tar` or `git` (uses SSH)
-  `--github`,   `-g` Create github remote repo from working folder
-  `--git`,      flag to run `git init` in working folder
-  `--subdir=`,  `-s`, Fetch sub directory when in gh mode
+  `--github`,  `-g` Initialize a private GitHub repository within the current working directory.
+  `--public`,  `-p` Switch to create a public GitHub repository. This must be paired with the `--github` option.
+  `--git`           A flag to execute `git init` within the current working directory.
+  `--subdir=`, `-s` Retrieve a specific subdirectory in GitHub CLI mode.
+
 
 See https://github.com/xiangnanscu/degit for more information
