@@ -1,4 +1,4 @@
-# degit — straightforward project scaffolding
+# @xiangnanscu/degit — straightforward project scaffolding
 
 [![Travis CI build status](https://badgen.net/travis/Rich-Harris/degit/master)](https://travis-ci.org/Rich-Harris/degit)
 [![AppVeyor build status](https://badgen.net/appveyor/ci/Rich-Harris/degit/master)](https://ci.appveyor.com/project/Rich-Harris/degit/branch/master)
@@ -12,13 +12,41 @@
 
 _Requires Node 8 or above, because `async` and `await` are the cat's pyjamas_
 
+# Enhance from origin degit
+
+- `degit some-repo` intead of `degit some-user/some-repo`
+
+When you've already login [gh](https://cli.github.com/) (say, login as `some-user`), you run `degit some-repo` and , it will be the same as `degit some-user/some-repo`
+
+- `--github` flag to create github remote repo from working folder
+
+- `--git` flag to run `git init` in working folder
+
+- `--subdir` flag to fetch sub directory when in gh mode
+
 ## Installation
 
 ```bash
-npm install -g degit
+npm install -g @xiangnanscu/degit
 ```
 
 ## Usage
+
+### gh mode
+assuming you login [gh](https://cli.github.com/) as `user`
+```bash
+# same as degit user/repo
+degit repo
+
+# initialize a github repo `user/somedir` from `user/repo` (commit and push immediately)
+cd somedir && degit repo --github
+
+# or like this
+degit repo somedir --github
+
+# or initialize `user/somedir` from `user/templates-repo/templateA`
+degit templates-repo somedir --github --subdir=templateA
+```
 
 ### Basics
 

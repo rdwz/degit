@@ -55,5 +55,8 @@ Options:
   `--verbose`, `-v`  Extra logging
   `--mode=`,   `-m=` Force the mode by which degit clones the repo
                      Valid options are `tar` or `git` (uses SSH)
+  `--github`,   `-g` Create github remote repo from working folder
+  `--git`,      flag to run `git init` in working folder
+  `--subdir=`,  `-s`, Fetch sub directory when in gh mode
 
-See https://github.com/Rich-Harris/degit for more information
+See https://github.com/xiangnanscu/degit for more information

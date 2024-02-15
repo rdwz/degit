@@ -1,19 +1,18 @@
 {
 	"name": "@xiangnanscu/degit",
-	"version": "2.21.0",
+	"version": "2.22.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
 	"description": "Straightforward project scaffolding",
 	"main": "dist/index.js",
 	"bin": {
-		"degit": "degit",
-		"gitt": "degit"
+		"degit": "degit"
 	},
 	"scripts": {
 		"lint": "eslint --color --ignore-path .gitignore .",
 		"dev": "npm run build -- --watch",
-		"build": "rollup -c",
+		"build": "rollup -c;cp help.md dist",
 		"prerc": "npm --no-git-tag-version version minor",
 		"rc": "npm run push",
 		"commit": "git add . && git commit -am ",
@@ -23,7 +22,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Rich-Harris/degit.git"
+		"url": "git+https://github.com/xiagnnanscu/degit.git"
 	},
 	"keywords": [
 		"scaffolding",
@@ -33,9 +32,9 @@
 	"author": "Rich Harris",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/Rich-Harris/degit/issues"
+		"url": "https://github.com/xiagnnanscu/degit/issues"
 	},
-	"homepage": "https://github.com/Rich-Harris/degit#readme",
+	"homepage": "https://github.com/xiagnnanscu/degit#readme",
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "18.0.0",
 		"@rollup/plugin-node-resolve": "11.2.1",
