@@ -15,6 +15,7 @@ import {
   unstashFiles,
   degitConfigName,
   base,
+	generateUUID,
 } from "./utils.js";
 
 const validModes = new Set(["tar", "git"]);
@@ -164,10 +165,10 @@ class Degit extends EventEmitter {
         if (this.force) {
           this._info({
             code: "DEST_NOT_EMPTY",
-            message: `destination directory is not empty. Using options.force, continuing`,
+            message: `destination directory ${dir} is not empty. Using options.force, continuing`,
           });
         } else {
-          throw new DegitError(`destination directory is not empty, aborting. Use options.force to override`, {
+          throw new DegitError(`destination directory ${dir} is not empty, aborting. Use options.force to override`, {
             code: "DEST_NOT_EMPTY",
           });
         }
@@ -311,9 +312,9 @@ class Degit extends EventEmitter {
 
   async _cloneWithGit(dir, dest) {
 		if (this.opts.subdir) {
-			await exec(`rm -rf /tmp/${dest}`)
-			await exec(`git clone --depth=1 ${this.repo.ssh} /tmp/${dest}`);
-			await exec(`mkdir -p ${dest} && cp -r /tmp/${dest}/${this.opts.subdir}/* ${dest}`)
+			const uuid = generateUUID()
+			await exec(`git clone --depth=1 ${this.repo.ssh} /tmp/${uuid}`);
+			await exec(`mkdir -p ${dest} && cp -r /tmp/${uuid}/${this.opts.subdir}/* ${dest}`)
 		} else {
 			await exec(`git clone --depth=1 ${this.repo.ssh} ${dest}`);
 			await exec(`rm -rf ${path.resolve(dest, ".git")}`);
@@ -346,7 +347,7 @@ function getGhConfig() {
 		}
 	}
 }
-function tryGh(src) {
+function tryGetGhRepo(src) {
   if (GIT_NAME_REGEX.test(src)) {
     const ghc = getGhConfig()
     if (ghc) {
@@ -373,9 +374,9 @@ function parse(src) {
       src
     );
   if (!match) {
-    const gh_repo = tryGh(src);
-    if (gh_repo) {
-      return gh_repo;
+    const ghRepo = tryGetGhRepo(src);
+    if (ghRepo) {
+      return ghRepo;
     }
     throw new DegitError(`could not parse ${src}`, {
       code: "BAD_SRC",

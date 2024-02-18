@@ -6,6 +6,8 @@
 
 - Use `degit some-repo` as a shortcut for `degit some-user/some-repo`
 
+- Alias `xit` for `degit`
+
 If you're already logged into [GitHub CLI](https://cli.github.com/) (for example, as `some-user`), executing `degit some-repo` will implicitly act as if you entered `degit some-user/some-repo`.
 
 - `--github` option to initialize a GitHub repository in your current directory
@@ -123,12 +125,6 @@ Note: this clones over SSH, not HTTPS.
 ```bash
 degit --help
 ```
-
-## Not supported
-
-- Private repositories
-
-Pull requests are very welcome!
 
 ## Wait, isn't this just `git clone --depth 1`?
 

@@ -20,8 +20,8 @@ const args = mri(process.argv.slice(2), {
 	},
 	boolean: ['force', 'cache', 'verbose', 'public','github','git']
 });
-console.log(args)
-const [src, dest = '.'] = args._;
+
+const [src, dest = path.resolve('.')] = args._;
 
 async function main() {
 	if (args.help) {
