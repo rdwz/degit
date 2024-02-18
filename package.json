@@ -1,13 +1,12 @@
 {
 	"name": "xxt",
-	"version": "2.26.0",
+	"version": "2.27.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
 	"description": "Straightforward project scaffolding",
 	"main": "dist/index.js",
 	"bin": {
-		"degit": "degit",
 		"xxt": "degit"
 	},
 	"scripts": {
