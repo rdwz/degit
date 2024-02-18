@@ -29,7 +29,7 @@ export default function degit(src, opts) {
 class Degit extends EventEmitter {
   constructor(src, opts = {}) {
     super();
-
+		this.opts = opts
     this.src = src;
     this.cache = opts.cache;
     this.force = opts.force;
@@ -43,7 +43,7 @@ class Degit extends EventEmitter {
 		if (opts.subdir) {
 			this.repo.subdir = '/' + opts.subdir
 		}
-		console.log(this.repo, opts.subdir)
+		console.log(opts, this.repo)
     this.mode = opts.mode || this.repo.mode;
 
     if (!validModes.has(this.mode)) {
@@ -310,8 +310,14 @@ class Degit extends EventEmitter {
   }
 
   async _cloneWithGit(dir, dest) {
-    await exec(`git clone ${this.repo.ssh} ${dest}`);
-    await exec(`rm -rf ${path.resolve(dest, ".git")}`);
+		if (this.opts.subdir) {
+			await exec(`rm -rf /tmp/${dest}`)
+			await exec(`git clone --depth=1 ${this.repo.ssh} /tmp/${dest}`);
+			await exec(`mkdir -p ${dest} && cp -r /tmp/${dest}/${this.opts.subdir}/* ${dest}`)
+		} else {
+			await exec(`git clone --depth=1 ${this.repo.ssh} ${dest}`);
+			await exec(`rm -rf ${path.resolve(dest, ".git")}`);
+		}
 		await this.gitStuff(dest)
   }
 
@@ -354,7 +360,7 @@ function tryGh(src) {
       const url = `https://${domain}/${user}/${name}`;
       const ssh = `git@${domain}:${user}/${name}`;
 
-      const mode =  "tar";
+      const mode =  "git";
 
       return { site, user, name, ref, url, ssh, subdir, mode };
     }
