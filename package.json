@@ -1,6 +1,6 @@
 {
-	"name": "@xiangnanscu/degit",
-	"version": "2.25.0",
+	"name": "xxt",
+	"version": "2.26.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
@@ -8,7 +8,7 @@
 	"main": "dist/index.js",
 	"bin": {
 		"degit": "degit",
-		"xit": "degit"
+		"xxt": "degit"
 	},
 	"scripts": {
 		"lint": "eslint --color --ignore-path .gitignore .",
