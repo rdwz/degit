@@ -1,6 +1,6 @@
-# @xiangnanscu/degit — straightforward project scaffolding
-[![install size](https://badgen.net/packagephobia/install/@xiangnanscu/degit)](https://packagephobia.now.sh/result?p=@xiangnanscu/degit)
-[![npm package version](https://badgen.net/npm/v/@xiangnanscu/degit)](https://npm.im/@xiangnanscu/degit)
+# xtt — straightforward project scaffolding
+[![install size](https://badgen.net/packagephobia/install/xtt)](https://packagephobia.now.sh/result?p=xtt)
+[![npm package version](https://badgen.net/npm/v/xtt)](https://npm.im/xtt)
 
 ## Enhancement from the origin degit
 
@@ -28,7 +28,7 @@ _Requires Node 8 or above, because `async` and `await` are the cat's pyjamas_
 ## Installation
 
 ```bash
-npm install -g @xiangnanscu/degit
+npm install -g xtt
 ```
 
 ## Usage
