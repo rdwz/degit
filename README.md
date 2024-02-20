@@ -6,7 +6,7 @@
 
 - Use `degit some-repo` as a shortcut for `degit some-user/some-repo`
 
-- Alias `xit` for `degit`
+- Alias `xxt` for `degit`
 
 If you're already logged into [GitHub CLI](https://cli.github.com/) (for example, as `some-user`), executing `degit some-repo` will implicitly act as if you entered `degit some-user/some-repo`.
 
