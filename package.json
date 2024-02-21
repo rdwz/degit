@@ -1,6 +1,6 @@
 {
 	"name": "xxt",
-	"version": "2.30.0",
+	"version": "2.31.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
@@ -19,7 +19,7 @@
 		"commit": "git add . && git commit -am ",
 		"c": "npm run commit",
 		"push": "npm run commit",
-		"postpush": "while true; do git push origin master && { echo 'Git push succeeded'; break; } || echo 'Git push failed, retrying in 1 seconds'; sleep 1; done"
+		"postpush": "while true; do timeout 5 git push origin && { echo 'Git push succeeded'; break; } || echo 'Git push failed, retrying in 1 seconds'; sleep 1; done"
 	},
 	"repository": {
 		"type": "git",
