@@ -314,7 +314,13 @@ class Degit extends EventEmitter {
 		if (this.opts.subdir) {
 			const uuid = generateUUID()
 			await exec(`git clone --depth=1 ${this.repo.ssh} /tmp/${uuid}`);
-			await exec(`mkdir -p ${dest} && cp -r /tmp/${uuid}/${this.opts.subdir}/* ${dest}`)
+			const src = `/tmp/${uuid}/${this.opts.subdir}`
+			if (fs.lstatSync(src).isDirectory()) {
+				await exec(`mkdir -p ${dest} && cp -r ${src}/* ${dest}`)
+			} else {
+				await exec(`mkdir -p ${dest} && cp -r ${src} ${dest}`)
+			}
+
 		} else {
 			await exec(`git clone --depth=1 ${this.repo.ssh} ${dest}`);
 			await exec(`rm -rf ${path.resolve(dest, ".git")}`);
