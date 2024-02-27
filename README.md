@@ -1,12 +1,12 @@
-# gitcp — straightforward project scaffolding
-[![install size](https://badgen.net/packagephobia/install/gitcp)](https://packagephobia.now.sh/result?p=gitcp)
-[![npm package version](https://badgen.net/npm/v/gitcp)](https://npm.im/gitcp)
+# gicp — straightforward project scaffolding
+[![install size](https://badgen.net/packagephobia/install/gicp)](https://packagephobia.now.sh/result?p=gicp)
+[![npm package version](https://badgen.net/npm/v/gicp)](https://npm.im/gicp)
 
 ## Enhancement from the origin degit
 
 - Use `degit some-repo` as a shortcut for `degit some-user/some-repo`
 
-- Alias `gitcp` for `degit`
+- Alias `gicp` for `degit`
 
 If you're already logged into [GitHub CLI](https://cli.github.com/) (for example, as `some-user`), executing `degit some-repo` will implicitly act as if you entered `degit some-user/some-repo`.
 
@@ -28,7 +28,7 @@ _Requires Node 8 or above, because `async` and `await` are the cat's pyjamas_
 ## Installation
 
 ```bash
-npm install -g gitcp
+npm install -g gicp
 ```
 
 ## Usage
