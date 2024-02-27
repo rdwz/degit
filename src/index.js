@@ -333,7 +333,7 @@ class Degit extends EventEmitter {
 			const repo_name = dest === '.' ? path.basename(path.resolve(dest)): dest
 			await exec(`cd ${dest} && \
 git init && git add . && \
-git commit -m "${this.message||'initial commit by xtt'}" && \
+git commit -m "${this.message||'initial commit by gitcp'}" && \
 gh repo create ${repo_name} --${this.public?'public':'private'} --source=. && \
 git push --set-upstream origin master`)
 		} else if (this.git) {

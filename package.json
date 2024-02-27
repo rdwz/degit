@@ -1,6 +1,6 @@
 {
-	"name": "xxt",
-	"version": "2.31.0",
+	"name": "gitcp",
+	"version": "2.32.0",
 	"engines": {
 		"node": ">=8.0.0"
 	},
@@ -8,7 +8,7 @@
 	"main": "dist/index.js",
 	"bin": {
 		"degit": "degit",
-		"xxt": "degit"
+		"gitcp": "degit"
 	},
 	"scripts": {
 		"lint": "eslint --color --ignore-path .gitignore .",
