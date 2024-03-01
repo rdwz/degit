@@ -322,6 +322,9 @@ class Degit extends EventEmitter {
 			}
 
 		} else {
+			if (fs.existsSync(dest) && this.opts.force) {
+				await exec(`rm -rf ${dest}`)
+			}
 			await exec(`git clone --depth=1 ${this.repo.ssh} ${dest}`);
 			await exec(`rm -rf ${path.resolve(dest, ".git")}`);
 		}
