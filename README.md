@@ -10,13 +10,13 @@
 
 If you're already logged into [GitHub CLI](https://cli.github.com/) (for example, as `some-user`), executing `degit some-repo` will implicitly act as if you entered `degit some-user/some-repo`.
 
-- `--github` option to initialize a GitHub repository in your current directory
+- `--github` or `-g` option to initialize a GitHub repository in your current directory
 
 - `--public` flag to create a public GitHub repository. This must be used in conjunction with the `--github` flag.
 
 - `--git` command to perform a `git init` in your current working directory
 
-- `--subdir=` parameter to define a subdirectory within a GitHub repository when operating in GitHub CLI mode
+- `--subdir=` or `-s=` parameter to define a subdirectory within a GitHub repository when operating in GitHub CLI mode
 
 ## Introduction
 
@@ -24,6 +24,11 @@ If you're already logged into [GitHub CLI](https://cli.github.com/) (for example
 
 _Requires Node 8 or above, because `async` and `await` are the cat's pyjamas_
 
+## In a hurry?
+```bash
+# use gh to clone your own github repo
+npx gicp repo-name
+```
 
 ## Installation
 
