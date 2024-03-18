@@ -1,12 +1,12 @@
-# gicp — straightforward project scaffolding
-[![install size](https://badgen.net/packagephobia/install/gicp)](https://packagephobia.now.sh/result?p=gicp)
-[![npm package version](https://badgen.net/npm/v/gicp)](https://npm.im/gicp)
+# cpgit — straightforward project scaffolding
+[![install size](https://badgen.net/packagephobia/install/cpgit)](https://packagephobia.now.sh/result?p=cpgit)
+[![npm package version](https://badgen.net/npm/v/cpgit)](https://npm.im/cpgit)
 
 ## Enhancement from the origin degit
 
 - Use `degit some-repo` as a shortcut for `degit some-user/some-repo`
 
-- Alias `gicp` for `degit`
+- Alias `cpgit` for `degit`
 
 If you're already logged into [GitHub CLI](https://cli.github.com/) (for example, as `some-user`), executing `degit some-repo` will implicitly act as if you entered `degit some-user/some-repo`.
 
@@ -27,13 +27,13 @@ _Requires Node 8 or above, because `async` and `await` are the cat's pyjamas_
 ## In a hurry?
 ```bash
 # use gh to clone your own github repo
-npx gicp repo-name
+npx cpgit repo-name
 ```
 
 ## Installation
 
 ```bash
-npm install -g gicp
+npm install -g cpgit
 ```
 
 ## Usage
@@ -55,6 +55,9 @@ degit repo somedir --github --public
 
 # or initialize `user/somedir` from `user/templates-repo/templateA`
 degit templates-repo somedir --github --subdir=templateA
+
+# or copy organization repo you own via ssh mode to somedir
+npx cpgit org/repo somedir -s=lib/dir --mode=git
 ```
 
 ### Basics
