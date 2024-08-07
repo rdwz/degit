@@ -315,10 +315,11 @@ class Degit extends EventEmitter {
 			const uuid = generateUUID()
 			await exec(`git clone --depth=1 ${this.repo.ssh} /tmp/${uuid}`);
 			const src = `/tmp/${uuid}/${this.opts.subdir}`
+			const overwriteTag = this.opts.force ? 'f' : '';
 			if (fs.lstatSync(src).isDirectory()) {
-				await exec(`mkdir -p ${dest} && cp -r ${src}/* ${dest}`)
+				await exec(`mkdir -p ${dest} && cp -r${overwriteTag} ${src}/* ${dest}`)
 			} else {
-				await exec(`mkdir -p ${dest} && cp -r ${src} ${dest}`)
+				await exec(`mkdir -p ${dest} && cp -r${overwriteTag} ${src} ${dest}`)
 			}
 
 		} else {
@@ -335,7 +336,7 @@ class Degit extends EventEmitter {
 		if (this.github && getGhConfig()) {
 			const repo_name = dest === '.' ? path.basename(path.resolve(dest)): dest
 			await exec(`cd ${dest} && \
-git init && git add . && \
+git init --initial-branch=${process.env.DEFAULT_BRANCH || 'master'} && git add . && \
 git commit -m "${this.message||'initial commit by cpgit'}" && \
 gh repo create ${repo_name} --${this.public?'public':'private'} --source=. && \
 git push --set-upstream origin master`)
