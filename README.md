@@ -58,6 +58,9 @@ degit templates-repo somedir --github --subdir=templateA
 
 # or copy organization repo you own via ssh mode to somedir
 npx cpgit org/repo somedir -s=lib/dir --mode=git
+
+# copy your repo `create-vitex`'s `template` directory to current dir, overwrite existing file
+npx -y cpgit create-vitex . --force --subdir=template
 ```
 
 ### Basics
